@@ -1,0 +1,77 @@
+// Components
+@import "./components/form";
+@import "./components/header";
+@import "./components/sidebar";
+
+*,
+*::before,
+*::after {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #eee;
+  color: #333;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(167, 167, 167);
+  border-radius: 100px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(133, 133, 133);
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  min-width: 360px;
+}
+
+// .container {
+//   max-width: 1440px;
+//   width: 100%;
+//   margin: 0px auto;
+//   padding: 0px 20px;
+// }
+
+a,
+button,
+span,
+input,
+i {
+  display: inline-block;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}

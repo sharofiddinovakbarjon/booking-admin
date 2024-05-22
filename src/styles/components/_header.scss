@@ -1,0 +1,33 @@
+.header {
+  background-color: #fff;
+  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px 30px 20px 0;
+
+  &-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .tools {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+
+      .themeChange {
+        background-color: transparent;
+        border: none;
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+      }
+
+      .profile {
+        font-size: 32px;
+        border-left: 1px solid #aaa;
+        padding-left: 20px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
