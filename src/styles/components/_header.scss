@@ -1,7 +1,11 @@
 .header {
   background-color: #fff;
   box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px 30px 20px 0;
+  position: sticky;
+  padding: 0 10px;
+  top: 0;
+  left: 0;
+  right: 0;
 
   &-inner {
     display: flex;
@@ -24,9 +28,58 @@
       .profile {
         font-size: 32px;
         border-left: 1px solid #aaa;
-        padding-left: 20px;
         display: flex;
         align-items: center;
+        gap: 10px;
+        padding: 20px 30px 20px 20px;
+
+        position: relative;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ddd;
+        }
+
+        span {
+          font-size: 20px;
+        }
+
+        .info-box {
+          width: 100%;
+          background-color: #fff;
+          z-index: 10;
+
+          display: none;
+          flex-direction: column;
+
+          position: absolute;
+          top: 80%;
+          right: 0px;
+
+          box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.2);
+          border: 1px solid #ddd;
+
+          li a {
+            font-size: 18px;
+            display: flex;
+            gap: 6px;
+            color: #333;
+            padding: 12px;
+            text-decoration: none;
+
+            &:hover {
+              background-color: #eee;
+            }
+          }
+        }
+
+        &.active {
+          background-color: #ddd;
+          
+          .info-box {
+            display: flex;
+          }
+        }
       }
     }
   }

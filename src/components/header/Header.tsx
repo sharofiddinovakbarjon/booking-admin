@@ -1,8 +1,10 @@
-import React from "react";
-import { IoPersonCircleOutline } from "react-icons/io5";
+import React, { useState } from "react";
+import { IoPersonCircleOutline, IoSettingsSharp } from "react-icons/io5";
 import { FaMoon } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
 
 const Header: React.FC = () => {
+  const [openProfileMenu, setOpenProfileMenu] = useState(false);
   return (
     <>
       <header className="header">
@@ -13,8 +15,35 @@ const Header: React.FC = () => {
               <button className="themeChange">
                 <FaMoon />
               </button>
-              <div className="profile">
+              <div
+                onClick={() => setOpenProfileMenu(!openProfileMenu)}
+                className={openProfileMenu ? "profile active" : "profile"}
+              >
                 <IoPersonCircleOutline />
+                <span>Admin</span>
+                <ul className="info-box">
+                  <li>
+                    <a href="#">
+                      <IoPersonCircleOutline />
+                      Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <IoSettingsSharp />
+                      Settings
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => localStorage.removeItem("userInfo")}
+                      href="/"
+                    >
+                      <IoIosLogOut />
+                      Log out
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
