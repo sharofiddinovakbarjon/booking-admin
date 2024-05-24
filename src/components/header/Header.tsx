@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   ) => {
     localStorage.removeItem("userInfo");
     logOutRequest();
-    console.log(result);
+    console.log(result, e.target);
   };
 
   return (

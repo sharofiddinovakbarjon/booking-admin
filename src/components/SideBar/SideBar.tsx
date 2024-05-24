@@ -6,6 +6,7 @@ const SideBar: React.FC = () => {
     e: React.MouseEvent<HTMLLIElement, MouseEvent>
   ) => {
     document.querySelector(".inner_menu")?.classList.toggle("active");
+    console.log(e.target);
   };
 
   return (
