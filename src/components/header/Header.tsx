@@ -2,9 +2,21 @@ import React, { useState } from "react";
 import { IoPersonCircleOutline, IoSettingsSharp } from "react-icons/io5";
 import { FaMoon } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
+import { useLogOutAdminMutation } from "@/store/apiRTK";
 
 const Header: React.FC = () => {
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
+
+  const [logOutRequest, result] = useLogOutAdminMutation();
+
+  const handleLogOut = async (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    localStorage.removeItem("userInfo");
+    logOutRequest();
+    console.log(result);
+  };
+
   return (
     <>
       <header className="header">
@@ -24,22 +36,25 @@ const Header: React.FC = () => {
                 <ul className="info-box">
                   <li>
                     <a href="#">
-                      <IoPersonCircleOutline />
+                      <span>
+                        <IoPersonCircleOutline />
+                      </span>
                       Profile
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <IoSettingsSharp />
+                      <span>
+                        <IoSettingsSharp />
+                      </span>
                       Settings
                     </a>
                   </li>
                   <li>
-                    <a
-                      onClick={() => localStorage.removeItem("userInfo")}
-                      href="/"
-                    >
-                      <IoIosLogOut />
+                    <a onClick={handleLogOut} href="/">
+                      <span>
+                        <IoIosLogOut />
+                      </span>
                       Log out
                     </a>
                   </li>

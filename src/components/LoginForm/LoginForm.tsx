@@ -22,6 +22,17 @@ const LoginForm: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
+
+    localStorage.setItem(
+      "userInfo",
+      JSON.stringify({
+        token: "token1234",
+        phone_number: phone,
+        password: password,
+      })
+    );
+
+    navigate("/");
   };
 
   useEffect(() => {

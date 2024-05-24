@@ -16,6 +16,7 @@ export const bookingSlice = createSlice({
   name: "booskin",
   initialState,
   reducers: {
+    // Set user info values
     setUserInfo: (state, { payload }: PayloadAction<UserInfo>) => {
       state.userInfo = payload;
     },
