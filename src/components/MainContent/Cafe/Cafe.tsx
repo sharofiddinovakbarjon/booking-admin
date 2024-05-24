@@ -1,85 +1,176 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/store/hooks/hooks";
 import { updateCafeInfo } from "@/store/bookingSlice/bookingSlice";
 
 const Cafe: React.FC = () => {
-  const { cafeInfo } = useAppSelector((state) => state.bookingSlice);
+  const [cafeCreated, setCafeCreated] = useState(false);
 
+  // Dispatch
   const dispatch = useAppDispatch();
 
-  const handleOnchange = (e: React.FormEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement & {
-      files: FileList;
-    };
-    // setLogo(URL.createObjectURL(target.files[0]));
-    dispatch(
-      updateCafeInfo({
-        ...cafeInfo,
-        logo_url: URL.createObjectURL(target.files[0]),
-      })
-    );
+  // Cafe Info
+  const { cafeInfo } = useAppSelector((state) => state.bookingSlice);
 
-    const formData = new FormData();
-    formData.append("image", cafeInfo.logo_url);
-
-    console.log(formData.getAll("image"));
-  };
+  useEffect(() => {
+    for (let el in cafeInfo) {
+      if (!el) {
+        setCafeCreated(true);
+      } else {
+        setCafeCreated(false);
+      }
+    }
+  }, []);
 
   return (
     <>
       <div className="cafe">
         <div className="cafe-inner">
-          <div className="title-box input-box">
-            <label htmlFor="name">Your name</label>
-
-            {cafeInfo.name.length === 0 ? (
-              <>
+          {!cafeCreated ? (
+            <>
+              <div className="name-row row">
+                <label htmlFor="name">Name: </label>
                 <input
                   type="text"
-                  value={cafeInfo.name}
-                  name="name"
                   id="name"
-                  onChange={(e) =>
-                    dispatch(
-                      updateCafeInfo({
-                        ...cafeInfo,
-                        name: e.target.value,
-                      })
-                    )
-                  }
+                  name="name"
+                  placeholder="your name..."
                 />
-              </>
-            ) : (
-              <>
-                <p className="value">{cafeInfo.name}</p>
-                <button className="change-btn">Change name</button>
-              </>
-            )}
-          </div>
-          <div className="title-box input-box">
-            <label htmlFor="phone">Your phone number</label>
-            <p className="value">{cafeInfo.phone_number}</p>
-            <button className="change-btn">Change phone</button>
-          </div>
-          <div className="title-box input-box">
-            <label htmlFor="logo">Your logo</label>
-
-            {cafeInfo.logo_url ? (
-              <img src={cafeInfo.logo_url} alt="logo-image" id="logoImage" />
-            ) : (
-              <div className="value img-box">
-                <input
-                  type="file"
-                  name="logo-img"
-                  id="logo-img"
-                  accept="image/png, image/jpg"
-                  onChange={handleOnchange}
-                />
-                <label htmlFor="logo-img">+</label>
               </div>
-            )}
-            {/* <button className="change-btn">Change   phone</button> */}
-          </div>
+              <div className="phone_number-row row">
+                <label htmlFor="phone_number">Phone number: </label>
+                <input
+                  type="tel"
+                  name="phone_number"
+                  id="phone_number"
+                  placeholder="your phone number..."
+                />
+              </div>
+              <div className="logo-row row">
+                <p>Logo: </p>
+                <div className="img-box">
+                  <input
+                    type="file"
+                    name="logo"
+                    id="logo"
+                    accept="image/jpg, image/png"
+                  />
+                  <label htmlFor="logo">+</label>
+                </div>
+              </div>
+              <div className="banner-row row">
+                <p>Banner: </p>
+                <div className="img-box">
+                  <input
+                    type="file"
+                    name="banner"
+                    id="banner"
+                    accept="image/jpg, image/png"
+                  />
+                  <label htmlFor="banner">+</label>
+                </div>
+              </div>
+              <div className="location-row row">
+                <label htmlFor="location">Location</label>
+                <input
+                  type="text"
+                  name="location"
+                  id="location"
+                  placeholder="your loaction..."
+                />
+                <p>or Choose from Map</p>
+                <div className="map"></div>
+              </div>
+              <div className="workingTime-row row">
+                <div className="timeFrom">
+                  <label htmlFor="start-time">From: </label>
+                  <input type="time" name="start-time" id="start-time" />
+                </div>
+                <div className="timeTo">
+                  <label htmlFor="end-time">To: </label>
+                  <input type="time" name="end-time" id="end-time" />
+                </div>
+              </div>
+              <div className="alcohol-row row">
+                <label htmlFor="alcohol">Yes alcohol?</label>
+                <input type="checkbox" name="alcohol" id="alcohol" />
+              </div>
+
+              <button className="createBtn">Create Cafe</button>
+            </>
+          ) : (
+            <>
+              <div className="name-row row">
+                <label htmlFor="name">Name: </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="your name..."
+                  value={cafeInfo.name}
+                />
+              </div>
+              <div className="phone_number-row row">
+                <label htmlFor="phone_number">Phone number: </label>
+                <input
+                  type="tel"
+                  name="phone_number"
+                  id="phone_number"
+                  placeholder="your phone number..."
+                />
+              </div>
+              <div className="logo-row row">
+                <p>Logo: </p>
+                <div className="img-box">
+                  <input
+                    type="file"
+                    name="logo"
+                    id="logo"
+                    accept="image/jpg, image/png"
+                  />
+                  <label htmlFor="logo">+</label>
+                </div>
+              </div>
+              <div className="banner-row row">
+                <p>Banner: </p>
+                <div className="img-box">
+                  <input
+                    type="file"
+                    name="banner"
+                    id="banner"
+                    accept="image/jpg, image/png"
+                  />
+                  <label htmlFor="banner">+</label>
+                </div>
+              </div>
+              <div className="location-row row">
+                <label htmlFor="location">Location</label>
+                <input
+                  type="text"
+                  name="location"
+                  id="location"
+                  placeholder="your loaction..."
+                />
+                <p>or Choose from Map</p>
+                <div className="map"></div>
+              </div>
+              <div className="workingTime-row row">
+                <div className="timeFrom">
+                  <label htmlFor="start-time">From: </label>
+                  <input type="time" name="start-time" id="start-time" />
+                </div>
+                <div className="timeTo">
+                  <label htmlFor="end-time">To: </label>
+                  <input type="time" name="end-time" id="end-time" />
+                </div>
+              </div>
+              <div className="alcohol-row row">
+                <label htmlFor="alcohol">Yes alcohol?</label>
+                <input type="checkbox" name="alcohol" id="alcohol" />
+              </div>
+
+              <button className="createBtn">Create Cafe</button>
+            </>
+          )}
         </div>
       </div>
     </>

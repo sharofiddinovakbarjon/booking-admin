@@ -7,30 +7,35 @@
   flex-direction: column;
   gap: 30px;
 
-  .input-box {
+  position: relative;
+  padding-bottom: 80px;
+
+  .row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: start;
-    // display: flex;
-    // justify-content: space-between;
-    width: 80%;
+    align-items: center;
+    grid-template-columns: repeat(5, 1fr);
 
-    label {
+    label,
+    p {
       font-weight: 700;
     }
 
-    #logoImage {
-      width: 250px;
-      height: 200px;
+    input {
+      grid-column-start: 2;
+      grid-column-end: 5;
+
+      border: none;
+      padding: 7px 12px;
+      border-radius: 4px;
+      box-shadow: inset 1px 1px 15px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
     }
 
-    .value {
-      color: rgb(61, 78, 129);
-      font-weight: 700;
-      letter-spacing: 1px;
+    &.logo-row,
+    &.banner-row {
+      align-items: start;
 
-      &.img-box {
-        position: relative;
+      .img-box {
         width: 250px;
         height: 200px;
         border: 2px dashed #ddd;
@@ -44,28 +49,73 @@
         }
 
         label {
+          font-size: 24px;
           background-color: #bbb;
           color: #fff;
-          padding: 5px 12px;
-          font-size: 24px;
+          padding: 4px 12px;
           border-radius: 50%;
         }
       }
     }
 
-    input {
-      padding: 7px 12px;
-      border-radius: 4px;
-      border: none;
-      box-shadow: inset 1px 1px 15px rgba(0, 0, 0, 0.2);
+    &.location-row {
+      p {
+        padding-left: 10px;
+      }
     }
 
-    .change-btn {
-      background-color: transparent;
-      border: none;
-      font-size: 16px;
-      color: royalblue;
-      cursor: pointer;
+    &.workingTime-row {
+      .timeFrom {
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        align-items: center;
+
+        input {
+          grid-column-start: 4;
+          grid-column-end: 6;
+        }
+      }
+
+      .timeTo {
+        grid-column-start: 4;
+        grid-column-end: 6;
+
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        align-items: center;
+
+        input {
+          grid-column-start: 3;
+          grid-column-end: 5;
+        }
+      }
     }
+
+    &.alcohol-row {
+      input {
+        grid-column-start: 2;
+        grid-column-end: 3;
+
+        width: 10%;
+        border: 1px solid black;
+        box-shadow: unset;
+      }
+    }
+  }
+
+  .createBtn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+
+    background-color: royalblue;
+    color: #fff;
+    border: none;
+    padding: 10px 34px;
+    font-size: 16px;
+    border-radius: 4px;
   }
 }
