@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoPersonCircleOutline, IoSettingsSharp } from "react-icons/io5";
 import { FaMoon } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { useLogOutAdminMutation } from "@/store/apiRTK";
+import toast from "react-hot-toast";
 
 const Header: React.FC = () => {
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
 
-  const [logOutRequest, result] = useLogOutAdminMutation();
+  const [logOutRequest, { isSuccess }] = useLogOutAdminMutation();
 
-  const handleLogOut = async (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    localStorage.removeItem("userInfo");
+  const handleLogOut = async () => {
+    localStorage.removeItem("token");
     logOutRequest();
-    console.log(result, e.target);
   };
 
   return (

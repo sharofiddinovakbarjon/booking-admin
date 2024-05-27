@@ -1,17 +1,25 @@
 import { useLogInAdminMutation } from "@/store/apiRTK";
+import { setUserInfo } from "@/store/bookingSlice/bookingSlice";
+import { useAppDispatch } from "@/store/hooks/hooks";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm: React.FC = () => {
+  // States
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
+  // -------------------------------------------
+
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  const [loginRequest, result] = useLogInAdminMutation({
-    fixedCacheKey: "shared-update-post",
-  });
+  // get Request function & result
+  const [loginRequest, result] = useLogInAdminMutation();
 
+  // -----------------------------------------
+
+  // Submit Function
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -22,33 +30,29 @@ const LoginForm: React.FC = () => {
     } catch (error) {
       console.log(error);
     }
-
-    localStorage.setItem(
-      "userInfo",
-      JSON.stringify({
-        token: "token1234",
-        phone_number: phone,
-        password: password,
-      })
-    );
-
-    navigate("/");
   };
 
+  // ----------------------------------------------
+
   useEffect(() => {
-    if (result.data) {
-      localStorage.setItem(
-        "userInfo",
-        JSON.stringify({
-          token: result.data.token,
-          phone_number: phone,
+    if (result.isSuccess && !result.isLoading) {
+      // Set to localstorage
+      localStorage.setItem("token", result.data.token);
+
+      // Set to store
+      dispatch(
+        setUserInfo({
           password: password,
+          phone_number: phone,
+          token: result.data.token,
         })
       );
+
+      // navigate to home
       navigate("/");
     }
 
-    if (localStorage.getItem("userInfo")) {
+    if (localStorage.getItem("token")) {
       navigate("/");
     }
   }, [result.data]);

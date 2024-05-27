@@ -12,7 +12,9 @@ const SideBar: React.FC = () => {
   return (
     <>
       <div className="sidebar">
-        <h1 className="title">Admin Panel</h1>
+        <a href="/" className="title">
+          Admin Panel
+        </a>
         <ul className="sidebar-content sidebar-menu">
           <li className="sidebar-menu_item">
             <a href={`/?setting`}>Your Cafe</a>

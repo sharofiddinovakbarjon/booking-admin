@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface State {
   userInfo: UserInfo;
   cafeInfo: CafeInfo;
+  cafeCreated: boolean;
 }
 
 const initialState: State = {
@@ -11,6 +12,7 @@ const initialState: State = {
     phone_number: "",
     token: "",
   },
+
   cafeInfo: {
     name: "",
     phone_number: "",
@@ -18,11 +20,14 @@ const initialState: State = {
     image_url: "",
     address: "",
     has_alcohol: false,
-    lattitude: null,
-    longitude: null,
-    start_working_time: null,
-    end_working_time: null,
+    lattitude: "",
+    longitude: "",
+    start_working_time: "",
+    end_working_time: "",
+    id: "",
   },
+
+  cafeCreated: false,
 };
 
 export const bookingSlice = createSlice({
@@ -38,9 +43,15 @@ export const bookingSlice = createSlice({
     updateCafeInfo: (state, { payload }: PayloadAction<CafeInfo>) => {
       state.cafeInfo = payload;
     },
+
+    // Set Cafe created
+    setCafeCreated: (state, { payload }: PayloadAction<boolean>) => {
+      state.cafeCreated = payload;
+    },
   },
 });
 
-export const { setUserInfo, updateCafeInfo } = bookingSlice.actions;
+export const { setUserInfo, updateCafeInfo, setCafeCreated } =
+  bookingSlice.actions;
 
 export default bookingSlice.reducer;

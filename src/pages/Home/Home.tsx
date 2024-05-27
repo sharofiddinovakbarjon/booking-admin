@@ -1,18 +1,69 @@
-import { Cafe, SideBar } from "@/components";
 import React, { useEffect } from "react";
+import { Cafe, SideBar } from "@/components";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useGetCafeQuery, useGetUserQuery } from "@/store/apiRTK";
+import { useAppDispatch } from "@/store/hooks/hooks";
+import {
+  setCafeCreated,
+  updateCafeInfo,
+} from "@/store/bookingSlice/bookingSlice";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
+  // Location setting
   const location = useLocation().search.substring(1);
   localStorage.setItem("location", location);
 
+  // ---------------------------------------------------
+  // Variables
+  const token = localStorage.getItem("token") + "";
+
+  // ===================================================
+  // API Requests
+
+  const {
+    data: userData,
+    isSuccess: userSuccess,
+    isLoading: userLoading,
+  } = useGetUserQuery(token);
+  // ---------------------------------------------------
+
+  const {
+    data: CafeData,
+    isSuccess: CafeSuccess,
+    isLoading: CafeLoading,
+  } = useGetCafeQuery(token);
+
+  // ===================================================
+
+  // Check localStorage has token
   useEffect(() => {
-    if (!localStorage.getItem("userInfo")) {
+    if (!localStorage.getItem("token")) {
       navigate("/login");
     }
   }, []);
+
+  // Check User
+  useEffect(() => {
+    if (!userLoading)
+      if (!userSuccess) {
+        navigate("/login");
+        localStorage.removeItem("token");
+      }
+  }, [userLoading]);
+
+  // Check Cafe
+  useEffect(() => {
+    if (!CafeLoading)
+      if (!CafeSuccess) {
+        navigate("/?setting");
+        dispatch(setCafeCreated(CafeSuccess));
+      } else {
+        dispatch(updateCafeInfo(CafeData));
+      }
+  }, [CafeLoading]);
 
   return (
     <>

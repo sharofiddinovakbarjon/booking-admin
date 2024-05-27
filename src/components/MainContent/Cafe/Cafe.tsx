@@ -1,31 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useAppSelector, useAppDispatch } from "@/store/hooks/hooks";
-import { updateCafeInfo } from "@/store/bookingSlice/bookingSlice";
+import { useAppSelector } from "@/store/hooks/hooks";
+import React from "react";
 
 const Cafe: React.FC = () => {
-  const [cafeCreated, setCafeCreated] = useState(false);
-
-  // Dispatch
-  const dispatch = useAppDispatch();
-
-  // Cafe Info
-  const { cafeInfo } = useAppSelector((state) => state.bookingSlice);
-
-  useEffect(() => {
-    for (let el in cafeInfo) {
-      if (!el) {
-        setCafeCreated(true);
-      } else {
-        setCafeCreated(false);
-      }
-    }
-  }, []);
+  const { cafeCreated, cafeInfo } = useAppSelector(
+    (state) => state.bookingSlice
+  );
 
   return (
     <>
       <div className="cafe">
         <div className="cafe-inner">
-          {!cafeCreated ? (
+          {!cafeCreated && cafeInfo ? (
             <>
               <div className="name-row row">
                 <label htmlFor="name">Name: </label>
