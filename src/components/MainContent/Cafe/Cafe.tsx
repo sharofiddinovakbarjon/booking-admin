@@ -128,7 +128,10 @@ const Cafe: React.FC = () => {
   return (
     <>
       <div className="cafe">
-        <div className="cafe-inner">
+        <div className="cafe-inner content-inner">
+          <div className="content-title">
+            <p>Your Cafe</p>
+          </div>
           {cafeCreated ? (
             <>
               <div className="name-row row">

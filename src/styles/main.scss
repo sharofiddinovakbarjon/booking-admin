@@ -3,10 +3,13 @@
 @import "./components/header";
 @import "./components/sidebar";
 @import "./components/modal";
-@import "./components/cafe";
 
 // Pages
 @import "./pages/Home.scss";
+
+// Contents
+@import "./components/Contents/cafe";
+@import "./components/Contents/banner";
 
 *,
 *::before,

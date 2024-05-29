@@ -1,0 +1,21 @@
+.banner {
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    .banner-inputBox {
+      label {
+        background-color: royalblue;
+        color: #fff;
+        padding: 10px 26px;
+        border-radius: 7px;
+      }
+    }
+  }
+}

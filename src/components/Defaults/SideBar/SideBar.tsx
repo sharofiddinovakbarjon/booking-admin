@@ -19,6 +19,9 @@ const SideBar: React.FC = () => {
           <li className="sidebar-menu_item">
             <a href={`/?setting`}>Your Cafe</a>
           </li>
+          <li className="sidebar-menu_item">
+            <a href="/?banner">Cafe Banners</a>
+          </li>
           <li className="sidebar-menu_item" onClick={handleOpenInnerMenu}>
             Rooms{" "}
             <span>

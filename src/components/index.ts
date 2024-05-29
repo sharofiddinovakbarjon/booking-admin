@@ -6,6 +6,7 @@ export { default as SideBar } from "./Defaults/SideBar/SideBar";
 
 // Page Content
 export { default as Cafe } from "./MainContent/Cafe/Cafe";
+export {default as Banner} from "./MainContent/Banner/Banner"
 
 // Form
 export { default as LoginForm } from "./FORM/LoginForm/LoginForm";

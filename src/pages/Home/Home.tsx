@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Cafe, SideBar } from "@/components";
+import { Banner, Cafe, SideBar } from "@/components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetCafeQuery, useGetUserQuery } from "@/store/apiRTK";
 import { useAppDispatch } from "@/store/hooks/hooks";
@@ -74,6 +74,10 @@ const Home: React.FC = () => {
             {location === "setting" ? (
               <>
                 <Cafe />
+              </>
+            ) : location === "banner" ? (
+              <>
+                <Banner />
               </>
             ) : (
               <>
