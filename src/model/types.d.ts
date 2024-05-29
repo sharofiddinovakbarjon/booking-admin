@@ -12,12 +12,12 @@ interface UserInfo {
 interface CafeInfo {
   id: string;
   name: string;
-  image_url: string;
-  logo_url: string;
+  image_url: File | null;
+  logo_url: File | null;
   has_alcohol: boolean;
   phone_number: string;
   address: string;
-  lattitude: string;
+  latitude: string;
   longitude: string;
   start_working_time: string;
   end_working_time: string;

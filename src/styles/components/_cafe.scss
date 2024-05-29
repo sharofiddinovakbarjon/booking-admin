@@ -10,6 +10,15 @@
   position: relative;
   padding-bottom: 80px;
 
+  .images-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .img-box {
+      grid-column-start: 3;
+    }
+  }
+
   .row {
     display: grid;
     align-items: center;
@@ -34,26 +43,15 @@
     &.logo-row,
     &.banner-row {
       align-items: start;
+      grid-template-columns: repeat(5, 1fr);
 
       .img-box {
-        width: 250px;
-        height: 200px;
-        border: 2px dashed #ddd;
-
         display: flex;
         align-items: center;
         justify-content: center;
 
         input {
           display: none;
-        }
-
-        label {
-          font-size: 24px;
-          background-color: #bbb;
-          color: #fff;
-          padding: 4px 12px;
-          border-radius: 50%;
         }
       }
     }
