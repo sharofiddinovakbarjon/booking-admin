@@ -2,10 +2,11 @@
   background-color: #fff;
   padding: 12px 20px;
   border-radius: 4px;
+  height: 88vh;
 
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
 
   position: relative;
   padding-bottom: 80px;
@@ -13,9 +14,23 @@
   .images-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    margin: 20px 0;
+
+    .banner-row {
+      .img-box {
+        grid-column-start: 2;
+        grid-column-end: 5;
+      }
+    }
 
     .img-box {
       grid-column-start: 3;
+      grid-column-end: 6;
+
+      img {
+        width: 250px;
+        height: 200px;
+      }
     }
   }
 
@@ -47,8 +62,7 @@
 
       .img-box {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        justify-content: start;
 
         input {
           display: none;

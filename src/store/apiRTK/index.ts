@@ -45,6 +45,7 @@ export const apiRTK = createApi({
         url: "/cafes/get-cafe/",
         method: "GET",
         headers: {
+          
           Authorization: `Token ${token}`,
         },
       }),

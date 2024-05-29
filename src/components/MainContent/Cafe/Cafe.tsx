@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { FormEvent, ReactHTMLElement, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import upload from "../../../assets/images/upload.png";
 
@@ -17,11 +17,29 @@ const Cafe: React.FC = () => {
     end_working_time: "",
   });
 
+  const [cafeCreated, setCafeCreated] = useState(false);
+
   const [logoPreview, setLogoPreview] = useState("");
   const [mainImgPreview, setMainImgPreview] = useState("");
 
   async function getCafe() {
     try {
+      const response = await axios.get(
+        "https://cafe-booking.uz/api/v1/cafes/get-cafe/",
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200 && response.data) {
+        const data = response.data;
+        setCafeData(data);
+        setCafeCreated(true);
+      } else {
+        setCafeCreated(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -82,11 +100,118 @@ const Cafe: React.FC = () => {
     }
   };
 
+  // Handle Delete Cafe
+  const handleDeleteCafe = async () => {
+    try {
+      const response = await axios.delete(
+        "https://cafe-booking.uz/api/v1/cafes/delete-cafe/",
+        {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 204) {
+        navigate("/");
+        localStorage.removeItem("location");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getCafe();
+  }, [token]);
+
   return (
     <>
       <div className="cafe">
         <div className="cafe-inner">
-          {cafeData ? (
+          {cafeCreated ? (
+            <>
+              <div className="name-row row">
+                <label htmlFor="name">Name: </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="your name..."
+                  value={cafeData.name}
+                />
+              </div>
+              <div className="phone_number-row row">
+                <label htmlFor="phone_number">Phone number: </label>
+                <input
+                  type="tel"
+                  name="phone_number"
+                  id="phone_number"
+                  placeholder="your phone number..."
+                  value={cafeData.phone_number}
+                />
+              </div>
+              <div className="images-row">
+                <div className="logo-row row">
+                  <p>Logo: </p>
+                  <div className="img-box">
+                    <img src={cafeData.logo_url + ""} alt="Logo preview" />
+                  </div>
+                </div>
+                <div className="banner-row row">
+                  <p>Image: </p>
+                  <div className="img-box">
+                    <img src={cafeData.image_url + ""} alt="Image preview" />
+                  </div>
+                </div>
+              </div>
+              <div className="location-row row">
+                <label htmlFor="address">Location</label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  placeholder="your loaction..."
+                  value={cafeData.address}
+                />
+                <p>or Choose from Map</p>
+                <div className="map"></div>
+              </div>
+              <div className="workingTime-row row">
+                <div className="timeFrom">
+                  <label htmlFor="start_working_time">From: </label>
+                  <input
+                    type="time"
+                    name="start_working_time"
+                    id="start_working_time"
+                    value={cafeData.start_working_time}
+                  />
+                </div>
+                <div className="timeTo">
+                  <label htmlFor="end_working_time">To: </label>
+                  <input
+                    type="time"
+                    name="end_working_time"
+                    id="end_working_time"
+                    value={cafeData.end_working_time}
+                  />
+                </div>
+              </div>
+              <div className="alcohol-row row">
+                <label htmlFor="has_alcohol">Yes alcohol?</label>
+                <input
+                  type="checkbox"
+                  name="has_alcohol"
+                  id="has_alcohol"
+                  checked={cafeData.has_alcohol}
+                />
+              </div>
+
+              <button className="createBtn" onClick={handleDeleteCafe}>
+                Delete Cafe
+              </button>
+            </>
+          ) : (
             <>
               <div className="name-row row">
                 <label htmlFor="name">Name: </label>
@@ -203,83 +328,6 @@ const Cafe: React.FC = () => {
               <button className="createBtn" onClick={handleSubmit}>
                 Create Cafe
               </button>
-            </>
-          ) : (
-            <>
-              <div className="name-row row">
-                <label htmlFor="name">Name: </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="your name..."
-                  value={cafeData}
-                />
-              </div>
-              <div className="phone_number-row row">
-                <label htmlFor="phone_number">Phone number: </label>
-                <input
-                  type="tel"
-                  name="phone_number"
-                  id="phone_number"
-                  placeholder="your phone number..."
-                />
-              </div>
-              <div className="logo-row row">
-                <p>Logo: </p>
-                <div className="img-box">
-                  <input
-                    type="file"
-                    name="logo"
-                    id="logo"
-                    accept="image/jpg, image/png"
-                  />
-                  <label htmlFor="logo">+</label>
-                </div>
-              </div>
-              <div className="banner-row row">
-                <p>Banner: </p>
-                <div className="img-box">
-                  <input
-                    type="file"
-                    name="banner"
-                    id="banner"
-                    accept="image/jpg, image/png"
-                  />
-                  <label htmlFor="banner">+</label>
-                </div>
-              </div>
-              <div className="location-row row">
-                <label htmlFor="location">Location</label>
-                <input
-                  type="text"
-                  name="location"
-                  id="location"
-                  placeholder="your loaction..."
-                />
-                <p>or Choose from Map</p>
-                <div className="map"></div>
-              </div>
-              <div className="workingTime-row row">
-                <div className="timeFrom">
-                  <label htmlFor="start_working_time">From: </label>
-                  <input
-                    type="time"
-                    name="start_working_time"
-                    id="start_working_time"
-                  />
-                </div>
-                <div className="timeTo">
-                  <label htmlFor="end-time">To: </label>
-                  <input type="time" name="end-time" id="end-time" />
-                </div>
-              </div>
-              <div className="alcohol-row row">
-                <label htmlFor="alcohol">Yes alcohol?</label>
-                <input type="checkbox" name="alcohol" id="alcohol" />
-              </div>
-
-              <button className="createBtn">Create Cafe</button>
             </>
           )}
         </div>

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoPersonCircleOutline, IoSettingsSharp } from "react-icons/io5";
 import { FaMoon } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 import { useLogOutAdminMutation } from "@/store/apiRTK";
-import toast from "react-hot-toast";
 
 const Header: React.FC = () => {
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
