@@ -28,6 +28,8 @@ const Home: React.FC = () => {
     isSuccess: userSuccess,
     isLoading: userLoading,
   } = useGetUserQuery(token);
+  
+  console.log(userData);
   // ---------------------------------------------------
 
   const {
