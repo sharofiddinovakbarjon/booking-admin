@@ -23,6 +23,20 @@ interface CafeInfo {
   end_working_time: string;
 }
 
+interface Room {
+  name: string;
+  image_url: File;
+  capacity: number;
+  price: string;
+  room_category_id: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  rooms: Room[];
+}
+
 // =------------------------------------------------
 
 // Types of responses

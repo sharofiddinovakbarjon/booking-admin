@@ -9,8 +9,6 @@ const Header: React.FC = () => {
 
   const [logOutRequest, { isSuccess }] = useLogOutAdminMutation();
 
-  console.log(isSuccess);
-
   const handleLogOut = async () => {
     localStorage.removeItem("token");
     logOutRequest();

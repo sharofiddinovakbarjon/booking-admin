@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Banner, Cafe, SideBar } from "@/components";
+import { Banner, Cafe, RoomCategory, Rooms, SideBar } from "@/components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetCafeQuery, useGetUserQuery } from "@/store/apiRTK";
 import { useAppDispatch } from "@/store/hooks/hooks";
@@ -28,8 +28,7 @@ const Home: React.FC = () => {
     isSuccess: userSuccess,
     isLoading: userLoading,
   } = useGetUserQuery(token);
-  
-  console.log(userData);
+
   // ---------------------------------------------------
 
   const {
@@ -80,6 +79,14 @@ const Home: React.FC = () => {
             ) : location === "banner" ? (
               <>
                 <Banner />
+              </>
+            ) : location === "add-category" ? (
+              <>
+                <RoomCategory />
+              </>
+            ) : location.includes("room-") ? (
+              <>
+                <Rooms />
               </>
             ) : (
               <>

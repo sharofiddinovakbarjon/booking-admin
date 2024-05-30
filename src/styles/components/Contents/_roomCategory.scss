@@ -1,0 +1,89 @@
+.room-category {
+  .content-top {
+    padding: 20px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    input {
+      width: 80%;
+
+      border: none;
+      padding: 12px;
+      border-radius: 4px;
+      box-shadow: inset 1px 1px 15px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+    }
+
+    .addCategory_btn {
+      background-color: royalblue;
+      color: #fff;
+      padding: 12px 24px;
+      border: none;
+      font-size: 16px;
+      border-radius: 7px;
+
+      box-shadow: -3px 5px 25px rgba(65, 105, 225, 0.74);
+
+      cursor: pointer;
+
+      transition: transform 0.2s;
+
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  // Categories List
+  .categories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
+      padding: 20px 15px;
+      border-radius: 7px;
+
+      .left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        span {
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        p {
+          font-size: 18px;
+          letter-spacing: 1px;
+          text-transform: capitalize;
+        }
+      }
+
+      .deleteCategory_btn {
+        background-color: crimson;
+        color: #fff;
+        border-radius: 7px;
+        padding: 12px 24px;
+        border: none;
+        font-size: 16px;
+
+        box-shadow: -3px 5px 25px rgba(220, 20, 60, 0.534);
+
+        cursor: pointer;
+
+        transition: transform 0.2s;
+
+        &:active {
+          transform: scale(0.9);
+        }
+      }
+    }
+  }
+}
