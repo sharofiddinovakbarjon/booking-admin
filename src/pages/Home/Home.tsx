@@ -24,7 +24,7 @@ const Home: React.FC = () => {
   // API Requests
 
   const {
-    data: userData,
+    // data: userData,
     isSuccess: userSuccess,
     isLoading: userLoading,
   } = useGetUserQuery(token);

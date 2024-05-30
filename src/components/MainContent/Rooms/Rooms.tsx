@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+// import { useLocation } from "react-router-dom";
 
 const Rooms: React.FC = () => {
   
-  const location = useLocation().search.substring(1);
+  // const location = useLocation().search.substring(1);
 
   useEffect(() => {}, []);
 

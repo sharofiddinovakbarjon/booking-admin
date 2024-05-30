@@ -7,6 +7,7 @@ const Banner: React.FC = () => {
   const [cafeData, setCafeData] = useState<CafeInfo>();
   const [banners, setBanners] = useState<File[]>([]);
   const [bannerApplied, setBannerApplied] = useState(false);
+  console.log(cafeData)
 
   const handleImagesUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -67,17 +68,17 @@ const Banner: React.FC = () => {
   };
 
   // Get Banners
-  const getBanners = async () => {
-    if (bannerApplied) {
-      try {
-        const response = await axios.get("");
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+  // const getBanners = async () => {
+  //   if (bannerApplied) {
+  //     try {
+  //       const response = await axios.get("");
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {}, [bannerApplied]);
+  // useEffect(() => {}, [bannerApplied]);
 
   return (
     <>

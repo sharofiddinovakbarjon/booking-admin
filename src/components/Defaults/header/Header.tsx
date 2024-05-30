@@ -8,6 +8,7 @@ const Header: React.FC = () => {
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
 
   const [logOutRequest, { isSuccess }] = useLogOutAdminMutation();
+  console.log(isSuccess)
 
   const handleLogOut = async () => {
     localStorage.removeItem("token");
