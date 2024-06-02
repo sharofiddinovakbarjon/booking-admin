@@ -7,8 +7,7 @@ import { useLogOutAdminMutation } from "@/store/apiRTK";
 const Header: React.FC = () => {
   const [openProfileMenu, setOpenProfileMenu] = useState(false);
 
-  const [logOutRequest, { isSuccess }] = useLogOutAdminMutation();
-  console.log(isSuccess)
+  const [logOutRequest] = useLogOutAdminMutation();
 
   const handleLogOut = async () => {
     localStorage.removeItem("token");

@@ -1,0 +1,232 @@
+.rooms {
+  .content-inner {
+    padding-top: 40px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .add-room_btn {
+      background-color: royalblue;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 18px;
+      border-radius: 6px;
+      box-shadow: -3px 5px 15px rgba(65, 105, 225, 0.719);
+      cursor: pointer;
+
+      grid-column-start: 2;
+      grid-column-end: 3;
+      grid-row-start: 1;
+
+      transition: transform 0.2s;
+
+      width: 200px;
+      margin-left: auto;
+
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  .roomForm {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 1200px;
+    height: 700px;
+    position: relative;
+
+    .inputBox {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+
+      &.image {
+        flex-direction: column;
+        align-items: start;
+        gap: 25px;
+
+        .roomImageSwiper {
+          max-width: 100%;
+          padding-bottom: 40px;
+          border-bottom: 1px solid #ddd;
+
+          .swiper-item {
+            position: relative;
+
+            span {
+              position: absolute;
+              top: 5px;
+              right: 5px;
+
+              background-color: #fff;
+              border: none;
+              padding: 1px 7px;
+              border-radius: 50%;
+              font-size: 20px;
+              cursor: pointer;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+        }
+
+        .images {
+          display: flex;
+          gap: 30px;
+
+          .img {
+            position: relative;
+
+            img {
+              max-width: 300px;
+              width: 100%;
+              height: 200px;
+            }
+
+            span {
+              position: absolute;
+              top: 5px;
+              right: 5px;
+
+              background-color: #fff;
+              border: none;
+              padding: 1px 7px;
+              border-radius: 50%;
+              font-size: 20px;
+              cursor: pointer;
+
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+        }
+
+        input {
+          display: none;
+        }
+
+        label {
+          background-color: royalblue;
+          color: #fff;
+          padding: 12px 24px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
+
+      label {
+        font-weight: 600;
+      }
+
+      input {
+        border: none;
+        box-shadow: inset 1px 1px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        padding: 7px 12px;
+      }
+    }
+
+    button {
+      background-color: royalblue;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 18px;
+      border: none;
+
+      position: absolute;
+      bottom: 20px;
+      right: 40px;
+
+      cursor: pointer;
+    }
+  }
+
+  .rooms-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+    border-top: 1px solid #ddd;
+
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 30px 10px;
+
+    .room {
+      box-shadow: 3px 6px 15px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      border-radius: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+
+      .img-box {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+
+        img {
+          width: 100%;
+          height: 250px;
+
+          transition: transform 0.2s;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.1);
+
+          transition: background-color 0.2s;
+        }
+      }
+
+      &:hover {
+        .img-box {
+          &::after {
+            background-color: rgba(0, 0, 0, 0.2);
+          }
+
+          img {
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        padding: 20px;
+        border-top: 1px solid #ddd;
+
+        p {
+          font-size: 18px;
+          font-weight: 500;
+        }
+
+        a {
+          color: royalblue;
+          text-align: end;
+          text-decoration: underline;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
