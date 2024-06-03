@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import upload from "../../../assets/images/upload.png";
 
@@ -21,6 +21,26 @@ const Cafe: React.FC = () => {
 
   const [logoPreview, setLogoPreview] = useState("");
   const [mainImgPreview, setMainImgPreview] = useState("");
+
+  // Refs
+  // ChangeField type
+  interface ChangeField {
+    name: boolean;
+    phone_number: boolean;
+    address: boolean;
+    start_working_time: boolean;
+    end_working_time: boolean;
+    has_alcohol: boolean;
+  }
+
+  const [changeField, setChangeField] = useState<ChangeField>({
+    name: false,
+    address: false,
+    phone_number: false,
+    start_working_time: false,
+    end_working_time: false,
+    has_alcohol: false,
+  });
 
   async function getCafe() {
     try {
@@ -51,17 +71,88 @@ const Cafe: React.FC = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setCafeData({ ...cafeData, [name]: type === "checkbox" ? checked : value });
+
+    if (cafeCreated && cafeData) {
+      setChangeField({ ...changeField, [name]: true });
+    }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePatch = async (name: string) => {
+    const formData = new FormData();
+
+    formData.append(name, cafeData[name as keyof Omit<CafeInfo, "id">] + "");
+    if (cafeCreated && cafeData) {
+      try {
+        const response = await axios.patch(
+          "https://cafe-booking.uz/api/v1/cafes/patch-cafe/",
+          formData,
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          setChangeField({ ...changeField, [name]: false });
+        }
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
     if (files && files[0]) {
       setCafeData({ ...cafeData, [name]: files[0] });
 
       if (name === "logo_url") {
         setLogoPreview(URL.createObjectURL(files[0]));
+
+        if (cafeCreated && cafeData) {
+          const formData = new FormData();
+          formData.append(name, files[0]);
+          try {
+            const response = await axios.patch(
+              "https://cafe-booking.uz/api/v1/cafes/patch-cafe/",
+              formData,
+              {
+                headers: {
+                  Authorization: `Token ${token}`,
+                },
+              }
+            );
+
+            console.log(response);
+          } catch (error) {
+            console.log(error);
+          }
+        }
       } else if (name === "image_url") {
         setMainImgPreview(URL.createObjectURL(files[0]));
+
+        if (cafeCreated && cafeData) {
+          const formData = new FormData();
+          formData.append(name, files[0]);
+          console.log(files[0]);
+          try {
+            const response = await axios.patch(
+              "https://cafe-booking.uz/api/v1/cafes/patch-cafe/",
+              formData,
+              {
+                headers: {
+                  Authorization: `Token ${token}`,
+                },
+              }
+            );
+
+            console.log(response);
+          } catch (error) {
+            console.log(error);
+          }
+        }
       }
     }
   };
@@ -142,7 +233,17 @@ const Cafe: React.FC = () => {
                   name="name"
                   placeholder="your name..."
                   value={cafeData.name}
+                  onChange={handleInputChange}
                 />
+
+                {changeField.name && (
+                  <button
+                    className="confirm-btn"
+                    onClick={() => handlePatch("name")}
+                  >
+                    Confirm
+                  </button>
+                )}
               </div>
               <div className="phone_number-row row">
                 <label htmlFor="phone_number">Phone number: </label>
@@ -152,7 +253,16 @@ const Cafe: React.FC = () => {
                   id="phone_number"
                   placeholder="your phone number..."
                   value={cafeData.phone_number}
+                  onChange={handleInputChange}
                 />
+                {changeField.phone_number && (
+                  <button
+                    className="confirm-btn"
+                    onClick={() => handlePatch("phone_number")}
+                  >
+                    Confirm
+                  </button>
+                )}
               </div>
               <div className="images-row">
                 <div className="logo-row row">
@@ -160,12 +270,34 @@ const Cafe: React.FC = () => {
                   <div className="img-box">
                     <img src={cafeData.logo_url + ""} alt="Logo preview" />
                   </div>
+                  <input
+                    type="file"
+                    name="logo_url"
+                    id="logo_url"
+                    style={{ display: "none" }}
+                    accept="image/png, image/jpg, image/jpeg"
+                    onChange={handleFileChange}
+                  />
+                  <label htmlFor="logo_url" className="confirm-btn">
+                    Change
+                  </label>
                 </div>
                 <div className="banner-row row">
                   <p>Image: </p>
                   <div className="img-box">
                     <img src={cafeData.image_url + ""} alt="Image preview" />
                   </div>
+                  <input
+                    type="file"
+                    name="image_url"
+                    id="image_url"
+                    style={{ display: "none" }}
+                    accept="image/png, image/jpg, unage.jpeg"
+                    onChange={handleFileChange}
+                  />
+                  <label htmlFor="image_url" className="confirm-btn">
+                    Change
+                  </label>
                 </div>
               </div>
               <div className="location-row row">
@@ -176,8 +308,17 @@ const Cafe: React.FC = () => {
                   id="address"
                   placeholder="your loaction..."
                   value={cafeData.address}
+                  onChange={handleInputChange}
                 />
-                <p>or Choose from Map</p>
+                {changeField.address && (
+                  <button
+                    className="confirm-btn"
+                    onClick={() => handlePatch("address")}
+                  >
+                    Confirm
+                  </button>
+                )}
+                {/* <p>or Choose from Map</p> */}
                 <div className="map"></div>
               </div>
               <div className="workingTime-row row">
@@ -188,7 +329,16 @@ const Cafe: React.FC = () => {
                     name="start_working_time"
                     id="start_working_time"
                     value={cafeData.start_working_time}
+                    onChange={handleInputChange}
                   />
+                  {changeField.start_working_time && (
+                    <button
+                      className="confirm-btn"
+                      onClick={() => handlePatch("start_working_time")}
+                    >
+                      Confirm
+                    </button>
+                  )}
                 </div>
                 <div className="timeTo">
                   <label htmlFor="end_working_time">To: </label>
@@ -198,6 +348,14 @@ const Cafe: React.FC = () => {
                     id="end_working_time"
                     value={cafeData.end_working_time}
                   />
+                  {changeField.end_working_time && (
+                    <button
+                      className="confirm-btn"
+                      onClick={() => handlePatch("end_working_time")}
+                    >
+                      Confirm
+                    </button>
+                  )}
                 </div>
               </div>
               <div className="alcohol-row row">
@@ -207,10 +365,19 @@ const Cafe: React.FC = () => {
                   name="has_alcohol"
                   id="has_alcohol"
                   checked={cafeData.has_alcohol}
+                  onChange={handleInputChange}
                 />
+                {changeField.has_alcohol && (
+                  <button
+                    className="confirm-btn"
+                    onClick={() => handlePatch("has_alcohol")}
+                  >
+                    Confirm
+                  </button>
+                )}
               </div>
 
-              <button className="createBtn" onClick={handleDeleteCafe}>
+              <button className="delete-btn" onClick={handleDeleteCafe}>
                 Delete Cafe
               </button>
             </>

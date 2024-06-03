@@ -16,6 +16,7 @@ const Rooms: React.FC = () => {
   const [modal, setModal] = useState(false);
   const [categoryName, setCategoryName] = useState("");
 
+  // Refs
   const cafeID = useRef("");
   const room_category_id = useRef("");
 
@@ -49,8 +50,6 @@ const Rooms: React.FC = () => {
         }
       );
 
-      console.log(categoriesAndRoomsResponse);
-
       if (categoriesAndRoomsResponse.status === 200) {
         setCurrentRooms(
           categoriesAndRoomsResponse.data.categories[
@@ -64,10 +63,12 @@ const Rooms: React.FC = () => {
           ].name
         );
 
-        console.log(currentRooms);
-
         room_category_id.current =
-          categoriesAndRoomsResponse.data.categories[0].id;
+          categoriesAndRoomsResponse.data.categories[
+            location[location.length - 1]
+          ].id;
+
+        console.log(room_category_id.current);
       }
     } catch (error) {
       console.log(error);
@@ -96,7 +97,7 @@ const Rooms: React.FC = () => {
     }
 
     for (let [key, value] of formData.entries()) {
-      console.log("key: ", key, " - value: ", typeof value);
+      console.log("key: ", key, " - value: ", value);
     }
     try {
       const response = await axios.post(

@@ -5,16 +5,33 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 const Banner: React.FC = () => {
   const [cafeData, setCafeData] = useState<CafeInfo>();
-  const [banners, setBanners] = useState<File[]>([]);
+  const [banners, setBanners] = useState<{ image_url: string }[]>([]);
   const [bannerApplied, setBannerApplied] = useState(false);
 
-  console.log(cafeData);
+  const handleImagesUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = e.target;
 
-  const handleImagesUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
+    if (files && files[0]) {
+      const formData = new FormData();
 
-    const filesArray = Array.from(files!);
-    setBanners((prev) => prev.concat(filesArray));
+      try {
+        const response = await axios.post(
+          "https://cafe-booking.uz/api/v1/cafes/post-cafe-banner/",
+          formData,
+          {
+            headers: {
+              Authorization: `Token ${token}`,
+            },
+          }
+        );
+
+        if (response.status === 201) {
+          setBanners(response.data.cafe_banners);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   const token = localStorage.getItem("token") + "";
@@ -32,48 +49,12 @@ const Banner: React.FC = () => {
     setBanners((prev) => prev.filter((item, id) => id !== index && item));
   };
 
-  // Handle submit Banners
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-
-    for (let i = 0; i < banners.length; i++) {
-      formData.append(
-        "images",
-        new Blob(banners, { type: "image/jpg, image/jpeg, image/png" })
-      );
-    }
-
-    const response = await axios.post(
-      "https://cafe-booking.uz/api/v1/cafes/post-cafe-banner/",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Token ${token}`,
-        },
-      }
-    );
-
-    if (response.status === 200) {
-      setBannerApplied(true);
-    }
-
-    console.log(response);
-
-    try {
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // Get Banners
   const getBanners = async () => {
-    if (bannerApplied) {
+    if (token) {
       try {
         const response = await axios.get(
-          "https://cafe-booking.uz/api/v1/cafes/get-list-all-cafe-banner/",
+          "https://cafe-booking.uz/api/v1/cafes/cafe/get-list-cafe-banner/",
           {
             headers: {
               Authorization: `Token ${token}`,
@@ -81,7 +62,9 @@ const Banner: React.FC = () => {
           }
         );
 
-        console.log(response);
+        if (response.status === 200) {
+          setBanners(response.data.cafe_banners);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -99,7 +82,7 @@ const Banner: React.FC = () => {
           <div className="content-title">
             <p>Your banner</p>
           </div>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="form-top">
               <p>Banners:</p>
               <input
@@ -127,7 +110,7 @@ const Banner: React.FC = () => {
                   style={banners.length < 3 ? { height: 600 } : {}}
                 >
                   <img
-                    src={URL.createObjectURL(banner)}
+                    src={banner.image_url }
                     alt="banner-image"
                     style={banners.length < 3 ? { height: 600 } : {}}
                   />
@@ -135,14 +118,6 @@ const Banner: React.FC = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-
-            {banners.length > 0 && bannerApplied ? (
-              <>
-                <button className="apply-btn">Apply</button>
-              </>
-            ) : (
-              <></>
-            )}
           </form>
         </div>
       </div>
