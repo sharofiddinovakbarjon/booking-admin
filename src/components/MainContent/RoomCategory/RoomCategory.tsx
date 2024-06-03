@@ -94,7 +94,6 @@ const RoomCategory: React.FC = () => {
           <div className="content-top">
             <input
               type="text"
-              placeholder="your room category name"
               value={inputValue}
               onChange={handleInputChange}
               required
@@ -103,7 +102,7 @@ const RoomCategory: React.FC = () => {
               onClick={() => setDialogOpen(true)}
               className="addCategory_btn"
             >
-              Add
+              Добавить
             </button>
             <Dialog
               open={dialogOpen}
@@ -112,19 +111,19 @@ const RoomCategory: React.FC = () => {
               aria-describedby="alert-dialog-description"
             >
               <DialogTitle id="alert-dialog-title">
-                {"Confirmation Category"}
+                {"Категория подтверждения"}
               </DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                  Are you sure?
+                  Вы уверены?
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleDiaogClose} style={{ color: "crimson" }}>
-                  No
+                  Нет
                 </Button>
                 <Button onClick={handleSubmit} autoFocus>
-                  Yes
+                  Да
                 </Button>
               </DialogActions>
             </Dialog>
@@ -136,9 +135,9 @@ const RoomCategory: React.FC = () => {
                 <div className="left">
                   <span>{index + 1}.</span>
                   <p>{category.name}</p>
-                  <p>Rooms: {category.rooms.length}</p>
+                  <p>Комнаты: {category.rooms.length}</p>
                 </div>
-                <button className="deleteCategory_btn">Delete</button>
+                <button className="deleteCategory_btn">Удалить</button>
               </div>
             ))}
           </div>

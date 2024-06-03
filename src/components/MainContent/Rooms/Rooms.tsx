@@ -24,6 +24,8 @@ const Rooms: React.FC = () => {
   let location = useLocation().search.substring(1);
   const token = localStorage.getItem("token") + "";
 
+  const formatPrice = Intl.NumberFormat("en-US");
+
   const getRooms = async () => {
     try {
       // Get Cafe ID
@@ -110,6 +112,10 @@ const Rooms: React.FC = () => {
         }
       );
 
+      if (response.status === 201) {
+        setModal(false);
+      }
+
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -159,7 +165,7 @@ const Rooms: React.FC = () => {
 
   useEffect(() => {
     getRooms();
-  }, []);
+  }, [modal]);
 
   return (
     <>
@@ -170,7 +176,7 @@ const Rooms: React.FC = () => {
               {currentRooms?.length > 0 ? (
                 <>
                   <h3>
-                    Your rooms:{" "}
+                    Ваши комнаты:{" "}
                     <span style={{ textTransform: "capitalize" }}>
                       {categoryName}
                     </span>
@@ -185,11 +191,24 @@ const Rooms: React.FC = () => {
                           <h1>
                             {index + 1}. {room.name}
                           </h1>
-                          <p className="capacity">Capacity: {room.capacity}</p>
-                          <p className="price">
-                            Price: {Math.round(Number.parseFloat(room.price))}$
+                          <p className="capacity">
+                            Вместимость: {room.capacity}
                           </p>
-                          <a href="#">Edit</a>
+                          <p className="price">
+                            Цена:{" "}
+                            {formatPrice
+                              .format(Number.parseInt(room.price))
+                              .replace(",", " ")}{" "}
+                            сум
+                          </p>
+                          <div className="row-edition">
+                            <a className="edit" href="#">
+                              Изменить
+                            </a>
+                            <a className="delete" href="#">
+                              Удалит
+                            </a>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -197,12 +216,12 @@ const Rooms: React.FC = () => {
                 </>
               ) : (
                 <h3>
-                  There is no rooms. Please press the 'Add Room' button to add
-                  your room.
+                  Нет комнат. Пожалуйста, нажмите кнопку «Добавить комнату»,
+                  чтобы добавить твоя комната.
                 </h3>
               )}
               <button className="add-room_btn" onClick={() => setModal(true)}>
-                Add room
+                Добавить комнату
               </button>
             </div>
           </>
@@ -212,7 +231,7 @@ const Rooms: React.FC = () => {
           <Modal>
             <form className="roomForm">
               <div className="name inputBox">
-                <label htmlFor="name">Room name: </label>
+                <label htmlFor="name">Название комнаты: </label>
                 <input
                   type="text"
                   name="name"
@@ -232,7 +251,7 @@ const Rooms: React.FC = () => {
                   required
                   onChange={handleInputFileChage}
                 />
-                <label htmlFor="image_url">Upload image</label>
+                <label htmlFor="image_url">Загрузить изображение</label>
 
                 {roomFormData.image_url &&
                 roomFormData.image_url.length >= 3 ? (
@@ -272,7 +291,7 @@ const Rooms: React.FC = () => {
                 )}
               </div>
               <div className="capacity inputBox">
-                <label htmlFor="capacity">Max members: </label>
+                <label htmlFor="capacity">Вместимость: </label>
                 <input
                   type="number"
                   name="capacity"
@@ -283,7 +302,7 @@ const Rooms: React.FC = () => {
                 />
               </div>
               <div className="price inputBox">
-                <label htmlFor="price">Price: </label>
+                <label htmlFor="price">Цена: </label>
                 <input
                   type="number"
                   name="price"
@@ -294,7 +313,7 @@ const Rooms: React.FC = () => {
                 />
               </div>
 
-              <button onClick={handleCreateRoom}>Add</button>
+              <button onClick={handleCreateRoom}>Добавить</button>
             </form>
           </Modal>
         )}

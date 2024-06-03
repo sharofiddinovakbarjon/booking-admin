@@ -220,11 +220,21 @@
           font-weight: 500;
         }
 
-        a {
-          color: royalblue;
-          text-align: end;
-          text-decoration: underline;
-          font-size: 18px;
+        .row-edition {
+          display: flex;
+          justify-content: end;
+          gap: 12px;
+
+          a {
+            color: royalblue;
+            text-align: end;
+            text-decoration: underline;
+            font-size: 18px;
+
+            &.delete {
+              color: crimson;
+            }
+          }
         }
       }
     }

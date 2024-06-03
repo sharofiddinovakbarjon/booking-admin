@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { Banner, Cafe, RoomCategory, Rooms, SideBar } from "@/components";
+import {
+  Banner,
+  Cafe,
+  Orders,
+  RoomCategory,
+  Rooms,
+  SideBar,
+} from "@/components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetCafeQuery, useGetUserQuery } from "@/store/apiRTK";
 import { useAppDispatch } from "@/store/hooks/hooks";
@@ -46,7 +53,7 @@ const Home: React.FC = () => {
     }
   }, []);
 
-  // Check User
+  // // Check User
   useEffect(() => {
     if (!userLoading)
       if (!userSuccess) {
@@ -55,7 +62,7 @@ const Home: React.FC = () => {
       }
   }, [userLoading]);
 
-  // Check Cafe
+  // // Check Cafe
   useEffect(() => {
     if (!CafeLoading)
       if (!CafeSuccess) {
@@ -87,6 +94,10 @@ const Home: React.FC = () => {
             ) : location.includes("room-") ? (
               <>
                 <Rooms />
+              </>
+            ) : location === "orders" ? (
+              <>
+                <Orders />
               </>
             ) : (
               <>

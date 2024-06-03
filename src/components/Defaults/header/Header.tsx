@@ -29,14 +29,14 @@ const Header: React.FC = () => {
                 className={openProfileMenu ? "profile active" : "profile"}
               >
                 <IoPersonCircleOutline />
-                <span>Admin</span>
+                <span>Админ</span>
                 <ul className="info-box">
                   <li>
                     <a href="#">
                       <span>
                         <IoPersonCircleOutline />
                       </span>
-                      Profile
+                      Профиль
                     </a>
                   </li>
                   <li>
@@ -44,7 +44,7 @@ const Header: React.FC = () => {
                       <span>
                         <IoSettingsSharp />
                       </span>
-                      Settings
+                      Настройки
                     </a>
                   </li>
                   <li>
@@ -52,7 +52,7 @@ const Header: React.FC = () => {
                       <span>
                         <IoIosLogOut />
                       </span>
-                      Log out
+                      Выйти
                     </a>
                   </li>
                 </ul>

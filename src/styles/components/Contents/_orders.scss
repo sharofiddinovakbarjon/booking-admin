@@ -1,0 +1,41 @@
+.orders {
+  &-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  table th,
+  td {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 12px;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  table td button {
+    padding: 10px;
+    border: none;
+    box-shadow: 1px 5px 15px rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    color: #fff;
+    border-radius: 8px;
+
+    &.reject {
+      background-color: crimson;
+      padding: 6px 12px;
+      font-size: 24px;
+    }
+
+    &.accept {
+      color: #fff;
+      background-color: #355e3b;
+    }
+  }
+}

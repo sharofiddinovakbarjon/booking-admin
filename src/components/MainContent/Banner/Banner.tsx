@@ -1,18 +1,23 @@
 import { useGetCafeQuery } from "@/store/apiRTK";
 import axios from "axios";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const Banner: React.FC = () => {
   const [cafeData, setCafeData] = useState<CafeInfo>();
   const [banners, setBanners] = useState<{ image_url: string }[]>([]);
-  const [bannerApplied, setBannerApplied] = useState(false);
+
+  console.log(cafeData);
 
   const handleImagesUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
 
     if (files && files[0]) {
       const formData = new FormData();
+
+      for (const el of files) {
+        formData.append("images", el);
+      }
 
       try {
         const response = await axios.post(
@@ -24,6 +29,8 @@ const Banner: React.FC = () => {
             },
           }
         );
+
+        console.log(response);
 
         if (response.status === 201) {
           setBanners(response.data.cafe_banners);
@@ -73,18 +80,18 @@ const Banner: React.FC = () => {
 
   useEffect(() => {
     getBanners();
-  }, []);
+  }, [banners]);
 
   return (
     <>
       <div className="banner">
         <div className="content-inner">
           <div className="content-title">
-            <p>Your banner</p>
+            <p>Ваш баннер</p>
           </div>
           <form>
             <div className="form-top">
-              <p>Banners:</p>
+              <p>Баннеры:</p>
               <input
                 type="file"
                 name="banner-img"
@@ -94,7 +101,7 @@ const Banner: React.FC = () => {
                 multiple
                 accept="image/jpg, image/png, image/jpeg"
               />
-              <label htmlFor="banner-img">Add Banner</label>
+              <label htmlFor="banner-img">Добавить баннер</label>
             </div>
 
             <Swiper
@@ -110,7 +117,7 @@ const Banner: React.FC = () => {
                   style={banners.length < 3 ? { height: 600 } : {}}
                 >
                   <img
-                    src={banner.image_url }
+                    src={banner.image_url}
                     alt="banner-image"
                     style={banners.length < 3 ? { height: 600 } : {}}
                   />

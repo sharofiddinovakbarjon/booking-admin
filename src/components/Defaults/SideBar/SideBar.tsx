@@ -46,23 +46,23 @@ const SideBar: React.FC = () => {
 
   useEffect(() => {
     getAllCategories();
-  }, [token]);
+  }, []);
 
   return (
     <>
       <div className="sidebar">
         <a href="/" className="title">
-          Admin Panel
+          Панель администратора
         </a>
         <ul className="sidebar-content sidebar-menu">
           <li className="sidebar-menu_item">
-            <a href={`/?setting`}>Your Cafe</a>
+            <a href={`/?setting`}>Ваше Кафе</a>
           </li>
           <li className="sidebar-menu_item">
-            <a href="/?banner">Cafe Banners</a>
+            <a href="/?banner">Баннеры кафе</a>
           </li>
           <li className="sidebar-menu_item" onClick={handleOpenInnerMenu}>
-            Rooms{" "}
+            Комнаты{" "}
             <span>
               <IoIosArrowForward />
             </span>
@@ -78,10 +78,13 @@ const SideBar: React.FC = () => {
                 </li>
               ))}
               <li className="inner_item">
-                <a href="/?add-category">Add Category</a>
+                <a href="/?add-category">Добавить категорию</a>
               </li>
             </ul>
           </li>
+          <div className="sidebar-menu_item">
+            <a href="/?orders">Заказы</a>
+          </div>
         </ul>
       </div>
     </>

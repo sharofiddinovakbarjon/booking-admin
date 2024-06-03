@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { FormEvent, useEffect, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import upload from "../../../assets/images/upload.png";
 
@@ -221,12 +221,12 @@ const Cafe: React.FC = () => {
       <div className="cafe">
         <div className="cafe-inner content-inner">
           <div className="content-title">
-            <p>Your Cafe</p>
+            <p>Ваше Кафе</p>
           </div>
           {cafeCreated ? (
             <>
               <div className="name-row row">
-                <label htmlFor="name">Name: </label>
+                <label htmlFor="name">Имя: </label>
                 <input
                   type="text"
                   id="name"
@@ -241,12 +241,12 @@ const Cafe: React.FC = () => {
                     className="confirm-btn"
                     onClick={() => handlePatch("name")}
                   >
-                    Confirm
+                    Подтверждать
                   </button>
                 )}
               </div>
               <div className="phone_number-row row">
-                <label htmlFor="phone_number">Phone number: </label>
+                <label htmlFor="phone_number">Номер телефона: </label>
                 <input
                   type="tel"
                   name="phone_number"
@@ -260,13 +260,13 @@ const Cafe: React.FC = () => {
                     className="confirm-btn"
                     onClick={() => handlePatch("phone_number")}
                   >
-                    Confirm
+                    Подтверждать
                   </button>
                 )}
               </div>
               <div className="images-row">
                 <div className="logo-row row">
-                  <p>Logo: </p>
+                  <p>Логотип: </p>
                   <div className="img-box">
                     <img src={cafeData.logo_url + ""} alt="Logo preview" />
                   </div>
@@ -279,11 +279,11 @@ const Cafe: React.FC = () => {
                     onChange={handleFileChange}
                   />
                   <label htmlFor="logo_url" className="confirm-btn">
-                    Change
+                    Изменять
                   </label>
                 </div>
                 <div className="banner-row row">
-                  <p>Image: </p>
+                  <p>Изображение: </p>
                   <div className="img-box">
                     <img src={cafeData.image_url + ""} alt="Image preview" />
                   </div>
@@ -296,12 +296,12 @@ const Cafe: React.FC = () => {
                     onChange={handleFileChange}
                   />
                   <label htmlFor="image_url" className="confirm-btn">
-                    Change
+                    Изменять
                   </label>
                 </div>
               </div>
               <div className="location-row row">
-                <label htmlFor="address">Location</label>
+                <label htmlFor="address">Расположение</label>
                 <input
                   type="text"
                   name="address"
@@ -315,7 +315,7 @@ const Cafe: React.FC = () => {
                     className="confirm-btn"
                     onClick={() => handlePatch("address")}
                   >
-                    Confirm
+                    Подтверждать
                   </button>
                 )}
                 {/* <p>or Choose from Map</p> */}
@@ -323,7 +323,7 @@ const Cafe: React.FC = () => {
               </div>
               <div className="workingTime-row row">
                 <div className="timeFrom">
-                  <label htmlFor="start_working_time">From: </label>
+                  <label htmlFor="start_working_time">От: </label>
                   <input
                     type="time"
                     name="start_working_time"
@@ -336,12 +336,12 @@ const Cafe: React.FC = () => {
                       className="confirm-btn"
                       onClick={() => handlePatch("start_working_time")}
                     >
-                      Confirm
+                      Подтверждать
                     </button>
                   )}
                 </div>
                 <div className="timeTo">
-                  <label htmlFor="end_working_time">To: </label>
+                  <label htmlFor="end_working_time">до: </label>
                   <input
                     type="time"
                     name="end_working_time"
@@ -353,13 +353,13 @@ const Cafe: React.FC = () => {
                       className="confirm-btn"
                       onClick={() => handlePatch("end_working_time")}
                     >
-                      Confirm
+                      Подтверждать
                     </button>
                   )}
                 </div>
               </div>
               <div className="alcohol-row row">
-                <label htmlFor="has_alcohol">Yes alcohol?</label>
+                <label htmlFor="has_alcohol">Есть алкоголь?</label>
                 <input
                   type="checkbox"
                   name="has_alcohol"
@@ -372,19 +372,19 @@ const Cafe: React.FC = () => {
                     className="confirm-btn"
                     onClick={() => handlePatch("has_alcohol")}
                   >
-                    Confirm
+                    Подтверждать
                   </button>
                 )}
               </div>
 
               <button className="delete-btn" onClick={handleDeleteCafe}>
-                Delete Cafe
+                Удалить кафе
               </button>
             </>
           ) : (
             <>
               <div className="name-row row">
-                <label htmlFor="name">Name: </label>
+                <label htmlFor="name">Имя: </label>
                 <input
                   type="text"
                   id="name"
@@ -395,7 +395,7 @@ const Cafe: React.FC = () => {
                 />
               </div>
               <div className="phone_number-row row">
-                <label htmlFor="phone_number">Phone number: </label>
+                <label htmlFor="phone_number">Номер телефона: </label>
                 <input
                   type="tel"
                   name="phone_number"
@@ -407,7 +407,7 @@ const Cafe: React.FC = () => {
               </div>
               <div className="images-row">
                 <div className="logo-row row">
-                  <p>Logo: </p>
+                  <p>Логотип: </p>
                   <div className="img-box">
                     {logoPreview ? (
                       <img src={logoPreview} alt="logo" />
@@ -428,7 +428,7 @@ const Cafe: React.FC = () => {
                   </div>
                 </div>
                 <div className="banner-row row">
-                  <p>Banner: </p>
+                  <p>Баннер: </p>
                   <div className="img-box">
                     {mainImgPreview ? (
                       <img src={mainImgPreview} alt="main image" />
@@ -450,7 +450,7 @@ const Cafe: React.FC = () => {
                 </div>
               </div>
               <div className="location-row row">
-                <label htmlFor="location">Location</label>
+                <label htmlFor="location">Локация</label>
                 <input
                   type="text"
                   name="address"
@@ -459,12 +459,12 @@ const Cafe: React.FC = () => {
                   value={cafeData.address}
                   onChange={handleInputChange}
                 />
-                <p>or Choose from Map</p>
+                <p>или выберите на карте</p>
                 <div className="map"></div>
               </div>
               <div className="workingTime-row row">
                 <div className="timeFrom">
-                  <label htmlFor="start_working_time">From: </label>
+                  <label htmlFor="start_working_time">От: </label>
                   <input
                     type="time"
                     name="start_working_time"
@@ -474,7 +474,7 @@ const Cafe: React.FC = () => {
                   />
                 </div>
                 <div className="timeTo">
-                  <label htmlFor="end_working_time">To: </label>
+                  <label htmlFor="end_working_time">До: </label>
                   <input
                     type="time"
                     name="end_working_time"
@@ -485,7 +485,7 @@ const Cafe: React.FC = () => {
                 </div>
               </div>
               <div className="alcohol-row row">
-                <label htmlFor="has_alcohol">Yes alcohol?</label>
+                <label htmlFor="has_alcohol">Есть алкоголь?</label>
                 <input
                   type="checkbox"
                   name="has_alcohol"
@@ -496,7 +496,7 @@ const Cafe: React.FC = () => {
               </div>
 
               <button className="createBtn" onClick={handleSubmit}>
-                Create Cafe
+                Создать кафе
               </button>
             </>
           )}

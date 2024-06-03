@@ -56,5 +56,26 @@ interface GetUserRes {
   profile_picture: string;
 }
 
-
-//"{'image_url': [ErrorDetail(string='File extension “” is not allowed. Allowed extensions are: bmp, dib, gif, jfif, jpe, jpg, jpeg, pbm, pgm, ppm, pnm, pfm, png, apng, blp, bufr, cur, pcx, dcx, dds, ps, eps, fit, fits, fli, flc, ftc, ftu, gbr, grib, h5, hdf, jp2, j2k, jpc, jpf, jpx, j2c, icns, ico, im, iim, mpg, mpeg, tif, tiff, mpo, msp, palm, pcd, pdf, pxr, psd, qoi, bw, rgb, rgba, sgi, ras, tga, icb, vda, vst, webp, wmf, emf, xbm, xpm.', code='invalid_extension')]}"
+interface Orders {
+  fullname: string;
+  phone_number: string;
+  capacity: number;
+  datetimes: {
+    time: string;
+    date: string;
+  }[];
+  user_id: {
+    phone_number: string;
+    fullname: string;
+    profile_picture: string;
+  };
+  room_id: {
+    id: string;
+    name: string;
+    image_url: string;
+    capacity: number;
+    price: number;
+  };
+  order_number: string;
+  order_status: string;
+}
